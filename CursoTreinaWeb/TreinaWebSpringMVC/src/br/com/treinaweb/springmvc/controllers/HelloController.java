@@ -6,6 +6,7 @@ import javax.xml.ws.RequestWrapper;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,18 @@ public class HelloController {
 	public ModelAndView mensagemDoServidorV2() {
 		ModelAndView resultado = new ModelAndView("mensagemDoServidor", "mensagem", "Olá TreinaWeb" + new Date().toString());
 		return resultado;
+	}
+	
+	/**
+	 * Método responsável por coletar alguma mensagem do usuário/view para nosso controller
+	 * @author cfaraujo
+	 * @param model (Objeto Model do SpringMVC)
+	 * @param mensagem (mensagem a ser recebida pelo usuário do browser)
+	 * */
+	@RequestMapping("/receberMensagem/{mensagem}")
+	public String receberMensagem(Model model, @PathVariable("mensagem") String msg) {
+		model.addAttribute("mensagem", msg);
+		return "mensagemDoServidor";
 	}
 	
 }
