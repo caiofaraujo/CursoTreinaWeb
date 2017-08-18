@@ -25,7 +25,7 @@ public class HelloController {
 		return "mensagemDoServidor";
 	}
 	
-	@RequestMapping
+	@RequestMapping("/mensagemDoServidor2")
 	public ModelAndView mensagemDoServidorV2() {
 		ModelAndView resultado = new ModelAndView("mensagemDoServidor", "mensagem", "Olá TreinaWeb" + new Date().toString());
 		return resultado;
