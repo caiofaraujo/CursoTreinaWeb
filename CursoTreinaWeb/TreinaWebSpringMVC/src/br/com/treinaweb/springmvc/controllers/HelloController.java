@@ -1,6 +1,7 @@
- package br.com.treinaweb.springmvc.controllers;
+package br.com.treinaweb.springmvc.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller // Notação para indicar um Controller no contexto do SpringMVC
@@ -12,5 +13,10 @@ public class HelloController {
 	public String message() {
 		return "hello";
 	}
-
+	
+	@RequestMapping("/mensagemDoServidor")
+	public String mensagemDoServidor(Model model) {
+		model.addAttribute("mensagem", "Olá, TreinaWeb!"); // MENSAGEM SERÁ REPASSADA A VIEW "mensagemDoServidor.jsp" ATRAVÉS DESTE MÉTODO
+		return "mensagemDoServidor";
+	}
 }
