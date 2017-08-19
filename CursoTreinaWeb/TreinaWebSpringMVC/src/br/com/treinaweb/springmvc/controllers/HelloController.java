@@ -22,7 +22,7 @@ public class HelloController {
 	
 	@RequestMapping("/mensagemDoServidor")
 	public String mensagemDoServidor(Model model) {
-		model.addAttribute("mensagem", "Olá, TreinaWeb" + new Date().toString()); // MENSAGEM SERÁ REPASSADA A VIEW "mensagemDoServidor.jsp" ATRAVÉS DESTE MÉTODO
+		model.addAttribute("mensagem", "Olá TreinaWeb " + new Date().toString()); // MENSAGEM SERÁ REPASSADA A VIEW "mensagemDoServidor.jsp" ATRAVÉS DESTE MÉTODO
 		return "mensagemDoServidor";
 	}
 	
