@@ -20,7 +20,7 @@ public class AlbunsController {
 	@RequestMapping(value = "/adicionar", method = RequestMethod.GET)
 	public String adicionar(Model model) {
 		model.addAttribute("album", new Album()); // Nome do bean utilizado pela página "adicionar.jsp" através do atributo "modelAttribute"
-		return ("albuns/adicionar"); // O Java irá procurar dentro do diretório "albuns" a página "adicionar.jsp"
+		return ("album.adicionar.tiles"); // O Java irá procurar dentro do diretório "albuns" a página "adicionar.jsp"
 	}
 	
 	// O método "POST" foi utilizado pois desejamos inserir algo novo em nosso servidor de aplicação
@@ -29,10 +29,10 @@ public class AlbunsController {
 		// Verificando se há erros de acordo com as validações
 		if (result.hasErrors()) {
 			// Caso haja erros o usuário será direcionado novamente para a página "albuns/adicionar"
-			return ("albuns/adicionar");
+			return ("album.adicionar.tiles");
 		}
 		model.addAttribute("album", novoAlbum);
-		return ("albuns/exibir"); // O Java irá procurar dentro do diretório "albuns" a página "exibir.jsp"
+		return ("album.exibir.tiles"); // O Java irá procurar dentro do diretório "albuns" a página "exibir.jsp"
 	}
 	
 }
