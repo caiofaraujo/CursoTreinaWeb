@@ -12,7 +12,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
         
 	   <!-- Habilitando suporte a validações JSR-303-->
-	   <mvc:annotation-driven></mvc:annotation-driven>
+	   <mvc:annotation-driven />
+	   
+	   <!-- Mapeando recursos da nossa aplicação (bootstrap/jquery) -->
+	   <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"></mvc:resources>
 	   
 	   <!-- Bean responsável pelo processo de views de nossos controllers -->
 	   <context:component-scan base-package="br.com.treinaweb.springmvc.controllers" />
