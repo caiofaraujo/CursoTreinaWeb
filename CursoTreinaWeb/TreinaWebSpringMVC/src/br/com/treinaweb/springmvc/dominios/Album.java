@@ -16,7 +16,7 @@ public class Album {
 	private String nome;
 	
 	@NotNull (message = "Informe o campo Ano de Lançamento")
-	@NotEmpty (message = "Informe o campo Ano de Lançamento")
+//	@NotEmpty (message = "Informe o campo Ano de Lançamento")
 	@Min(value = 1990, message = "O Ano de Lançamento deve ser apartir de 1990")
 	@Max (value = 2030, message = "O Ano de Lançamento deve ser até de 2030")
 	private int anoDeLancamento;

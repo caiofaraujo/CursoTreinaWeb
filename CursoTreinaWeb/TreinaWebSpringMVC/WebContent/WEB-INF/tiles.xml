@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
-	"-//Apache Software Fundation//DTD Tiles Configuration 3.0//EN"
-	"http://tiles.apache.org/dtds/tiles/config_3_0.dtd">
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 	<!-- Arquivo de definição de layout (tiles) padrão da nossa aplicação -->
 	<definition name="layout.tiles" template="/WEB-INF/views/layout/baseLayout.jsp">
