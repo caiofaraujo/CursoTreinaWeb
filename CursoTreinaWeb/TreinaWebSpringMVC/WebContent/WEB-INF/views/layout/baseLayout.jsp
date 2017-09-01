@@ -21,7 +21,7 @@
 	<div style="width: 100%">
 		<tiles:insertAttribute name="header" ignore="false"></tiles:insertAttribute>
 	</div>
-	<div style="width: 100%">
+	<div style="width: 100%; margin: 5%;">
 		<tiles:insertAttribute name="body" ignore="false"></tiles:insertAttribute>
 	</div>
 	<div style="width: 100%">
