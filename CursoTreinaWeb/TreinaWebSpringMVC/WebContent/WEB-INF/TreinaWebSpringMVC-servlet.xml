@@ -1,40 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
-        
-	   <!-- Habilitando suporte a validações JSR-303-->
-	   <mvc:annotation-driven />
-	   
-	   <!-- Mapeando recursos da nossa aplicação (bootstrap/jquery) -->
-	   <mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"></mvc:resources>
-	   
-	   <!-- Bean responsável pelo processo de views de nossos controllers -->
-	   <context:component-scan base-package="br.com.treinaweb.springmvc.controllers" />
-	   <bean id="viewResolver"
-			class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-			<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
-	   </bean>
-	   
-	   <!-- Bean responsável pelo processo de configuração do Tiles -->
-	   <bean id="tilesConfigurer"
-	   		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-	   		<property name="definitions">
-		   		<list>
-		   			<value>/WEB-INF/tiles.xml</value>
-		   		</list>
-	   		</property>
-	   </bean>
-	   
-	   <!-- Bean responsável pelo processo de validação JSR-303 -->
-	   <bean id="validator"
-	   		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Habilitando suporte a validações JSR-303 -->
+	<mvc:annotation-driven />
+
+	<!-- Mapeando recursos da nossa aplicação (bootstrap/jquery) -->
+	<mvc:resources location="/WEB-INF/resources/" mapping="/resources/**"></mvc:resources>
+
+	<!-- Bean responsável pelo processo de views de nossos controllers -->
+	<context:component-scan base-package="br.com.treinaweb.springmvc.controllers" />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView"></property>
+	</bean>
+
+	<!-- Bean responsável pelo processo de configuração do Tiles -->
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Bean responsável pelo processo de validação JSR-303 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- CONFIGURAÇÕES DO SPRING DATA -->
+	<!-- Bean responsável pela fonte de dados (conexões) -->
+	<bean id="dataSource" 
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<!-- Driver de Conexão BD -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/treinawebspringmvc?useTimezone=true;serverTimezone=UTC;"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<!-- Bean responsável pelo gerenciamento/mapeamento do Modelo Relacional (SQL) para o Modelo Orientado a Objetos (Java) -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- A referência utilizada está configurada no bean acima "dataSource" (conexão ao banco de dados mysql) -->
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" value="br.com.treinaweb.springmvc.dominios"></property>
+		<property name="jpaVenderAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2dll.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Bean responsável por gerenciar as transações do Banco de Dados -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<!-- A referência utilizada está configurada no bean acima "entityManagerFactory" -->
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	<!-- Repositórios JPA -->
+	<jpa:repositories base-package="br.com.treinaweb.springmvc.repositorios"></jpa:repositories>
 </beans>
